@@ -1,6 +1,6 @@
 {
   "name": "performance-stats",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Performance stats: ms, fps and % cpu per frame",
   "main": "index.js",
   "scripts": {

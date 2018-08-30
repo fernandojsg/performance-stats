@@ -43,7 +43,7 @@
 	    },
 
 	    numFrames: 0,
-	    log: true,
+	    log: false,
 	    totalTimeInMainLoop: 0,
 	    totalTimeOutsideMainLoop: 0,
 	    fpsCounterUpdateInterval: 200, // msecs
