@@ -1,0 +1,23 @@
+{
+  "name": "performance-stats",
+  "version": "0.1.0",
+  "description": "Performance stats: ms, fps and % cpu per frame",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fernandojsg/performance-stats.git"
+  },
+  "author": "Fernando Serrano <fernandojsg@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fernandojsg/performance-stats/issues"
+  },
+  "homepage": "https://github.com/fernandojsg/performance-stats#readme",
+  "devDependencies": {
+    "rollup": "^0.64.1",
+    "rollup-plugin-node-resolve": "^3.3.0"
+  }
+}
