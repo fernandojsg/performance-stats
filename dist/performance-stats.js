@@ -1,10 +1,54 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('stats-incremental')) :
-	typeof define === 'function' && define.amd ? define(['stats-incremental'], factory) :
-	(global.PERFSTATS = factory(global.Stats));
-}(this, (function (Stats) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.PERFSTATS = factory());
+}(this, (function () { 'use strict';
 
-	Stats = Stats && Stats.hasOwnProperty('default') ? Stats['default'] : Stats;
+	class PerfStats {
+	  constructor() {
+	    this.n = 0;
+	    this.min = Number.MAX_VALUE;
+	    this.max = -Number.MAX_VALUE;
+	    this.sum = 0;
+	    this.mean = 0;
+	    this.q = 0;
+	  }
+
+	  get variance() {
+	    return this.q / this.n;
+	  }
+
+	  get standard_deviation() {
+	    return Math.sqrt(this.q / this.n);
+	  }
+
+	  update(value) {
+	    var num = parseFloat(value);
+	    if (isNaN(num)) {
+	      // Sorry, no NaNs
+	      return;
+	    }
+	    this.n++;
+	    this.min = Math.min(this.min, num);
+	    this.max = Math.max(this.max, num);
+	    this.sum += num;
+	    const prevMean = this.mean;
+	    this.mean = this.mean + (num - this.mean) / this.n;
+	    this.q = this.q + (num - prevMean) * (num - this.mean);
+	  }
+
+	  getAll() {
+	    return {
+	      n: this.n,
+	      min: this.min,
+	      max: this.max,
+	      sum: this.sum,
+	      mean: this.mean,
+	      variance: this.variance,
+	      standard_deviation: this.standard_deviation
+	    };
+	  }  
+	}
 
 	//----------------------------------------------------------------------
 	// TESTSTATS
@@ -37,9 +81,9 @@
 	    },
 
 	    stats: {
-	      fps: Stats(),
-	      dt: Stats(),
-	      cpu: Stats()        
+	      fps: new PerfStats(),
+	      dt: new PerfStats(),
+	      cpu: new PerfStats()        
 	    },
 
 	    numFrames: 0,

@@ -1,4 +1,4 @@
-import Stats from 'stats-incremental';
+import Stats from 'incremental-stats-lite';
 
 //----------------------------------------------------------------------
 // TESTSTATS
@@ -31,9 +31,9 @@ export default function () {
     },
 
     stats: {
-      fps: Stats(),
-      dt: Stats(),
-      cpu: Stats()        
+      fps: new Stats(),
+      dt: new Stats(),
+      cpu: new Stats()        
     },
 
     numFrames: 0,
